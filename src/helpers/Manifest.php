@@ -346,10 +346,12 @@ EOT;
             Craft::error($e->getMessage(), __METHOD__);
         }
         if ($path !== null) {
-            $path = self::combinePaths(
-                $config['localFiles']['basePath'],
-                $path
-            );
+            if (!UrlHelper::isAbsoluteUrl($path)) {
+                $path = self::combinePaths(
+                    $config['localFiles']['basePath'],
+                    $path
+                );
+            }
 
             return self::getFileFromUri($path, null) ?? '';
         }
