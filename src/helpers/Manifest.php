@@ -61,16 +61,16 @@ class Manifest
      */
     public static function getCssModuleTags(array $config, string $moduleName, bool $async): string
     {
-        $legacyModule = self::getModule($config, $moduleName, 'legacy', true);
-        if ($legacyModule === null) {
+        $modernModule = self::getModule($config, $moduleName, 'modern', true);
+        if ($modernModule === null) {
             return '';
         }
         $lines = [];
         if ($async) {
-            $lines[] = "<link rel=\"preload\" href=\"{$legacyModule}\" as=\"style\" onload=\"this.onload=null;this.rel='stylesheet'\" />";
-            $lines[] = "<noscript><link rel=\"stylesheet\" href=\"{$legacyModule}\"></noscript>";
+            $lines[] = "<link rel=\"preload\" href=\"{$modernModule}\" as=\"style\" onload=\"this.onload=null;this.rel='stylesheet'\" />";
+            $lines[] = "<noscript><link rel=\"stylesheet\" href=\"{$modernModule}\"></noscript>";
         } else {
-            $lines[] = "<link rel=\"stylesheet\" href=\"{$legacyModule}\" />";
+            $lines[] = "<link rel=\"stylesheet\" href=\"{$modernModule}\" />";
         }
 
         return implode("\r\n", $lines);
